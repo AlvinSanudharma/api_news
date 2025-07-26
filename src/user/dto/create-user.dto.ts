@@ -9,9 +9,13 @@ const CreateUserSchema = z.object({
     .min(1, {
       message: 'Username is required',
     }),
-  email: z.string({
-    message: 'Email must be a valid email address',
-  }),
+  email: z
+    .string({
+      message: 'Email must be a string',
+    })
+    .email({
+      message: 'Email must be a valid email address',
+    }),
   name: z
     .string({
       required_error: 'Username is required',
