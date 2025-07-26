@@ -24,6 +24,7 @@ const CreateUserSchema = z.object({
     .min(1, {
       message: 'Username is required',
     }),
+  avatar: z.string().nullable().optional(),
 });
 
 export class CreateUserDto {
@@ -33,5 +34,6 @@ export class CreateUserDto {
     public readonly username: string,
     public readonly email: string,
     public readonly name: string,
+    public readonly avatar?: string,
   ) {}
 }
