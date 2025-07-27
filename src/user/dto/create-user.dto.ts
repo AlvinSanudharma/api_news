@@ -34,6 +34,6 @@ export class CreateUserDto {
     public readonly username: string,
     public readonly email: string,
     public readonly name: string,
-    public readonly avatar?: string,
+    public avatar?: string,
   ) {}
 }
