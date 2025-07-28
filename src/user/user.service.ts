@@ -29,8 +29,24 @@ export class UserService {
     });
 
     if (!user) {
-      throw new NotFoundException();
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
+
+    return user;
+  }
+
+  async updateUser(
+    id: number,
+    userData: Partial<CreateUserDto>,
+  ): Promise<User | null> {
+    await this.getUserById(id);
+
+    const user = await this.prismaService.user.update({
+      where: {
+        id,
+      },
+      data: userData,
+    });
 
     return user;
   }

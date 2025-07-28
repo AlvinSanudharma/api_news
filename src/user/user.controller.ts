@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Req,
   UploadedFile,
   UseInterceptors,
@@ -25,11 +26,11 @@ export class UserController {
     FileInterceptor('avatar', {
       storage: diskStorage({
         destination: './uploads/user/avatar',
-        filename: (req, file, callback) => {
+        filename: (_, file, callback) => {
           const fileExt = extname(file.originalname);
 
-          const uniqueSuffix =
-            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+
           const filename = `avatar-${uniqueSuffix}${fileExt}`;
 
           callback(null, filename);
@@ -46,6 +47,16 @@ export class UserController {
     }
 
     const user = await this.userService.createUser(userData);
+
+    return user;
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param('id') id: number,
+    @Body() userData: Partial<CreateUserDto>,
+  ): Promise<User | null> {
+    const user = await this.userService.updateUser(Number(id), userData);
 
     return user;
   }
