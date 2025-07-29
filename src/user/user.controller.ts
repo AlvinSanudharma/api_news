@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -57,6 +58,13 @@ export class UserController {
     @Body() userData: Partial<CreateUserDto>,
   ): Promise<User | null> {
     const user = await this.userService.updateUser(Number(id), userData);
+
+    return user;
+  }
+
+  @Delete(':id')
+  async deleteUser(@Param('id') id: number): Promise<User | null> {
+    const user = await this.userService.deleteUser(Number(id));
 
     return user;
   }
