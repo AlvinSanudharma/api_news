@@ -28,7 +28,7 @@ const CreateUserSchema = z.object({
 });
 
 export class CreateUserDto {
-  static schema: ZodObject<any> = CreateUserSchema;
+  static schema: ZodObject<typeof CreateUserSchema.shape> = CreateUserSchema;
 
   constructor(
     public readonly username: string,

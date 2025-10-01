@@ -4,9 +4,11 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
-import { ZodObject, ZodEffects } from 'zod';
+import { ZodObject, ZodEffects, ZodTypeAny } from 'zod';
 
-type ZodSchemaType = ZodObject<any> | ZodEffects<ZodObject<any>>;
+type ZodSchemaType<T extends ZodTypeAny = ZodTypeAny> =
+  | ZodObject<Record<string, T>>
+  | ZodEffects<ZodObject<Record<string, T>>>;
 
 interface ZodSchemaClass {
   schema: ZodSchemaType;
