@@ -8,7 +8,7 @@ export class UserService {
   constructor(protected prismaService: PrismaService) {}
 
   async createUser(userData: CreateUserDto): Promise<User> {
-    const existingUser = this.getUserByEmail(userData.email);
+    const existingUser = await this.getUserByEmail(userData.email);
 
     if (existingUser) {
       throw new NotFoundException(
